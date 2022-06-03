@@ -49,16 +49,29 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Plugin.NFC" Version="0.1.22" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="AppShell.xaml.cs">
 	    <DependentUpon>AppShell.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="NFC.xaml.cs">
+	    <DependentUpon>NFC.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Barcode.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Camera.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Map.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="NFC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

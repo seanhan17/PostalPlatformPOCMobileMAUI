@@ -16,6 +16,16 @@
             <ShellContent ContentTemplate="{DataTemplate views:Map}" />
         </Tab>
     </FlyoutItem>
+    <FlyoutItem Title="NFC">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:NFC}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Barcode">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:Barcode}" />
+        </Tab>
+    </FlyoutItem>
     <!--<ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
