@@ -13,5 +13,11 @@
                 Text="Activate NFC"
                 Clicked="OnActivateNFC"
                 HorizontalOptions="Center" />
+
+        <Button 
+                x:Name="DeactivateNFCButton"
+                Text="Deactivate NFC"
+                Clicked="OnDeactivateNFC"
+                HorizontalOptions="Center" />
     </StackLayout>
 </ContentPage>
