@@ -14,10 +14,11 @@
                 Clicked="OnTakePhoto"
                 HorizontalOptions="Center" />
 
-        <Button 
-                x:Name="ViewPhotoButton"
-                Text="View Photo"
-                Clicked="OnViewPhoto"
-                HorizontalOptions="Center" />
+        <Image Source="https://aka.ms/campus.jpg"
+                x:Name="_PhotoView"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="350"
+                HeightRequest="350" />
     </StackLayout>
 </ContentPage>

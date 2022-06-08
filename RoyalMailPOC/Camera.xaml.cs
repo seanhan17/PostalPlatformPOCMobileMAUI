@@ -22,19 +22,7 @@ public partial class Camera : ContentPage
                 using FileStream localFileStream = File.OpenWrite(localFilePath);
 
                 await sourceStream.CopyToAsync(localFileStream);
-            }
-        }
-    }
-
-    public async void OnViewPhoto(object sender, EventArgs e)
-    {
-        if (MediaPicker.Default.IsCaptureSupported)
-        {
-            FileResult photo = await MediaPicker.Default.PickPhotoAsync();
-
-            if (photo != null)
-            {
-
+                _PhotoView.Source = localFilePath;
             }
         }
     }
