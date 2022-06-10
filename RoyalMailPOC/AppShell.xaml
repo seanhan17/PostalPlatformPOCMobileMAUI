@@ -13,7 +13,7 @@
     </FlyoutItem>
     <FlyoutItem Title="Map">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:Map}" />
+            <ShellContent ContentTemplate="{DataTemplate views:Mapzx}" />
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="NFC">

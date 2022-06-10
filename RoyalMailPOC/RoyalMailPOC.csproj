@@ -79,7 +79,7 @@
 	  <MauiXaml Update="Camera.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Map.xaml">
+	  <MauiXaml Update="Mapzx.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="NFC.xaml">
