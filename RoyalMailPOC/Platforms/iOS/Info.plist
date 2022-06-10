@@ -38,5 +38,14 @@
 	<string>This app needs access to photos gallery for picking photos and videos.</string>
 	<key>NFCReaderUsageDescription</key>
 	<string>NFC tag to read NDEF messages into the application</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Fill in a reason why your app needs access to location.</string>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<array>
+	  <dict>
+		<key>TemporaryFullAccuracyUsageDescription</key>
+		<string>Fill in a reason why your app needs full accuracy</string>
+	  </dict>
+	</array>
 </dict>
 </plist>

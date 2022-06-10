@@ -19,5 +19,10 @@
                 Text="Navigate 2"
                 Clicked="OnNavigateTwo"
                 HorizontalOptions="Center" />
+        <Button 
+                x:Name="GetGeolocationButton"
+                Text="Get Current Location"
+                Clicked="OnGetGeolocation"
+                HorizontalOptions="Center" />
     </StackLayout>
 </ContentPage>
