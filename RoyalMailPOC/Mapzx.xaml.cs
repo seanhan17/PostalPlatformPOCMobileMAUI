@@ -56,18 +56,25 @@ public partial class Mapzx : ContentPage
     {
         try
         {
-            _isCheckingLocation = true;
+            PermissionStatus locationAlwaysStatus = await Permissions.RequestAsync<Permissions.LocationAlways>();
+            PermissionStatus locationWhenInUseStatus = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
 
-            GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+            if (locationAlwaysStatus == PermissionStatus.Granted || locationWhenInUseStatus == PermissionStatus.Granted)
+            {
 
-            _cancelTokenSource = new CancellationTokenSource();
+                _isCheckingLocation = true;
 
-            Location location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
+                GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
 
-            if (location != null)
-                await DisplayAlert("Get Current Location", $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}", "Ok");
-            else
-                await DisplayAlert("Get Current Location", "Unable to retrieve current location", "Ok");
+                _cancelTokenSource = new CancellationTokenSource();
+
+                Location location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
+
+                if (location != null)
+                    await DisplayAlert("Get Current Location", $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}", "Ok");
+                else
+                    await DisplayAlert("Get Current Location", "Unable to retrieve current location", "Ok");
+            }
         }
         // Catch one of the following exceptions:
         //   FeatureNotSupportedException

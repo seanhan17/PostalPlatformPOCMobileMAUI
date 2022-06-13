@@ -1,4 +1,5 @@
-﻿using ZXing.Net.Maui;
+﻿using RoyalMailPOC.SQLiteRepository;
+using ZXing.Net.Maui;
 
 namespace RoyalMailPOC;
 
@@ -17,7 +18,9 @@ public static class MauiProgram
 			});
 
 		builder.Services.AddSingleton<IMap>(Map.Default);
+        builder.Services.AddSingleton(new AccountRepository("accounts.db"));
+        builder.Services.AddScoped<SQLite>();
 
-		return builder.Build();
+        return builder.Build();
 	}
 }

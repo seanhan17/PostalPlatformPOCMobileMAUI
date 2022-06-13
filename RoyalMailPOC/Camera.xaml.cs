@@ -11,18 +11,23 @@ public partial class Camera : ContentPage
     {
         if (MediaPicker.Default.IsCaptureSupported)
         {
-            FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+            PermissionStatus status = await Permissions.RequestAsync<Permissions.Camera>();
 
-            if (photo != null)
+            if (status == PermissionStatus.Granted)
             {
-                // save the file into local storage
-                string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+                FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
 
-                using Stream sourceStream = await photo.OpenReadAsync();
-                using FileStream localFileStream = File.OpenWrite(localFilePath);
+                if (photo != null)
+                {
+                    // save the file into local storage
+                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
 
-                await sourceStream.CopyToAsync(localFileStream);
-                _PhotoView.Source = localFilePath;
+                    using Stream sourceStream = await photo.OpenReadAsync();
+                    using FileStream localFileStream = File.OpenWrite(localFilePath);
+
+                    await sourceStream.CopyToAsync(localFileStream);
+                    _PhotoView.Source = localFilePath;
+                }
             }
         }
     }

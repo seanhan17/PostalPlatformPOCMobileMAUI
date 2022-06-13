@@ -26,6 +26,11 @@
             <ShellContent ContentTemplate="{DataTemplate views:Barcode}" />
         </Tab>
     </FlyoutItem>
+    <FlyoutItem Title="SQLite">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:SQLite}" />
+        </Tab>
+    </FlyoutItem>
     <!--<ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
