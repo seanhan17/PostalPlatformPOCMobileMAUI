@@ -1,0 +1,91 @@
+﻿@page "/map"
+@using PPPOCMobileBlazorMAUI.Interface
+@inject IDialogService DialogService
+
+<h3>Mapzx</h3>
+
+
+<button @onclick="OnNavigate">Navigate 1</button>
+<button @onclick="OnNavigateTwo">Navigate 2</button>
+<button @onclick="OnGetGeolocation">Get Current Location</button>
+
+@code {
+    private CancellationTokenSource _cancelTokenSource;
+    private bool _isCheckingLocation;
+
+    private async void OnNavigate()
+    {
+        var location = new Location(47.645160, -122.1306032);
+        var options = new MapLaunchOptions { Name = "Microsoft Building 25" };
+
+        try
+        {
+            await Map.Default.OpenAsync(location, options);
+        }
+        catch (Exception ex)
+        {
+            // No map application available to open
+        }
+    }
+
+    private async void OnNavigateTwo()
+    {
+        var placemark = new Placemark
+        {
+            CountryName = "United States",
+            AdminArea = "WA",
+            Thoroughfare = "Microsoft Building 25",
+            Locality = "Redmond"
+        };
+
+        var options = new MapLaunchOptions { Name = "Microsoft Building 25" };
+
+        try
+        {
+            await placemark.OpenMapsAsync(options);
+        }
+        catch (Exception ex)
+        {
+            // No map application available to open or placemark can not be located
+        }
+    }
+
+    private async void OnGetGeolocation()
+    {
+        try
+        {
+            PermissionStatus locationAlwaysStatus = await Permissions.RequestAsync<Permissions.LocationAlways>();
+            PermissionStatus locationWhenInUseStatus = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+
+            if (locationAlwaysStatus == PermissionStatus.Granted || locationWhenInUseStatus == PermissionStatus.Granted)
+            {
+
+                _isCheckingLocation = true;
+
+                GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+
+                _cancelTokenSource = new CancellationTokenSource();
+
+                Location location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
+                
+
+                if (location != null)
+                    await DialogService.DisplayConfirm("Get Current Location",  $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}", "Ok", "Cancel");
+                else
+                    await DialogService.DisplayConfirm("Get Current Location",  "Unable to retrieve current location", "Ok", "Cancel");
+            }
+        }
+        // Catch one of the following exceptions:
+        //   FeatureNotSupportedException
+        //   FeatureNotEnabledException
+        //   PermissionException
+        catch (Exception ex)
+        {
+            // Unable to get location
+        }
+        finally
+        {
+            _isCheckingLocation = false;
+        }
+    }
+}

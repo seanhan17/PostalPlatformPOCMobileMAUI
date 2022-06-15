@@ -1,0 +1,45 @@
+﻿@page "/camera"
+@inject IJSRuntime JS
+
+<h3>Camera</h3>
+
+<button @onclick="OnTakePhoto">Take Photo</button>
+<img id="image1" src="$@imageSource" width="300" height="300" />
+
+@code {
+    string imageSource = "https://aka.ms/campus.jpg";
+
+    private async Task OnTakePhoto()
+    {
+        if (MediaPicker.Default.IsCaptureSupported)
+        {
+            PermissionStatus status = await Permissions.RequestAsync<Permissions.Camera>();
+
+            if (status == PermissionStatus.Granted)
+            {
+                FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+
+                if (photo != null)
+                {
+                    // save the file into local storage
+                    //string localFilePath2 = Path.Combine(Environment.GetFolderPath(FileSystem.CacheDirectory), photo.FileName);
+                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+
+                    using Stream sourceStream = await photo.OpenReadAsync();
+                    {
+                        using FileStream localFileStream = File.OpenWrite(localFilePath);
+
+                        await sourceStream.CopyToAsync(localFileStream);
+
+                        //imageSource = localFilePath;
+                        //imageSource = ImageSource.FromStream(() => sourceStream);
+
+                        var dotnetImageStream = new DotNetStreamReference(sourceStream);
+                        await JS.InvokeVoidAsync("setImageUsingStreaming", "image1", dotnetImageStream);
+                    }
+                }
+            }
+        }
+    }
+}
+

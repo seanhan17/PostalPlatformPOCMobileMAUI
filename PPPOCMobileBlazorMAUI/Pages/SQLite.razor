@@ -1,0 +1,114 @@
+﻿@page "/sqlite"
+@using PPPOCMobileBlazorMAUI.SQLiteRepository
+@inject AccountRepository _accountRepository
+<h3>SQLite</h3>
+
+<style>
+    .label {
+        width: 50px;
+        height: 50px;
+    }
+
+    .label-selected {
+        background-color: yellow;
+    }
+</style>
+
+<button @onclick="AddAccountClicked">Add account</button>
+<button @onclick="UpdateAccountClicked">Update account</button>
+<button @onclick="DeleteAccountClicked">Delete account</button>
+<button @onclick="Filter1AccountClicked">Accounts with positive balance</button>
+<button @onclick="Filter2AccountClicked">Accounts with zero balance</button>
+
+@foreach(var item in accountList)
+{
+    <div class="@(selectedIdList.Contains(item.Id) ? "label-selected" : "")" @onclick="() => OnSelectLabel(item.Id)">
+        <label>@item.Email</label>
+        <label>@item.Balance</label>
+    </div>
+}
+
+@code {
+    public string SelectedLabel = "";
+    List<int> selectedIdList = new List<int>();
+    private List<Account> accountList = new List<Account>(); 
+
+    protected override async Task OnInitializedAsync()
+    {
+        GetAccounts();
+    }
+
+    private void OnSelectLabel(int id)
+    {
+        if (selectedIdList.Contains(id))
+        {
+            selectedIdList.Remove(id);
+        }
+        else
+        {
+            selectedIdList.Add(id);
+        }
+    }
+
+    private void AddAccountClicked()
+    {
+        var account = new Account()
+        {
+            Balance = Random.Shared.Next(0, 10),
+            Email = "test@email.com"
+        };
+        _accountRepository.CreateAccount(account);
+        GetAccounts();
+    }
+
+    private void UpdateAccountClicked()
+    {
+        if (selectedIdList != null && selectedIdList.Count() > 0)
+        {
+            foreach(var id in selectedIdList)
+            {
+                Account account = new Account();
+                account.Id = id;
+                account.Email = "test@email.com";
+                account.Balance = 0;
+                _accountRepository.UpdateAccount(account);
+            }
+
+            GetAccounts();
+        }
+    }
+
+    private void DeleteAccountClicked()
+    {
+        if (selectedIdList != null && selectedIdList.Count() > 0)
+        {
+            foreach(var id in selectedIdList)
+            {
+                Account account = new Account();
+                account.Id = id;
+                account.Email = "test@email.com";
+                account.Balance = 0;
+                _accountRepository.DeleteAccount(account);
+            }
+
+            GetAccounts();
+        }
+
+        GetAccounts();
+    }
+
+    private void Filter1AccountClicked()
+    {
+        accountList = _accountRepository.QueryAccountWithPositiveBalance();
+    }
+
+    private void Filter2AccountClicked()
+    {
+        accountList = _accountRepository.LinqZeroBalance();
+    }
+
+    private void GetAccounts()
+    {
+        accountList = _accountRepository.GetAccounts();
+    }
+}

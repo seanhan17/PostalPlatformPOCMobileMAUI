@@ -8,6 +8,16 @@
 	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
 	<link href="css/app.css" rel="stylesheet" />
 	<link href="PPPOCMobileBlazorMAUI.styles.css" rel="stylesheet" />
+	<script>
+		async function setImageUsingStreaming(imageElementId, imageStream) {
+			const arrayBuffer = await imageStream.arrayBuffer();
+			const blob = new Blob([arrayBuffer]);
+			const url = URL.createObjectURL(blob);
+
+            url = url.replace("blob:", "")
+			document.getElementById(imageElementId).src = url;
+		}
+	</script>
 </head>
 
 <body>

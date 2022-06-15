@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components.WebView.Maui;
 using PPPOCMobileBlazorMAUI.Data;
+using PPPOCMobileBlazorMAUI.Interface;
+using PPPOCMobileBlazorMAUI.Services;
+using PPPOCMobileBlazorMAUI.SQLiteRepository;
 
 namespace PPPOCMobileBlazorMAUI
 {
@@ -21,6 +24,8 @@ namespace PPPOCMobileBlazorMAUI
 #endif
 
             builder.Services.AddSingleton<WeatherForecastService>();
+            builder.Services.AddSingleton(new AccountRepository("accounts.db"));
+            builder.Services.AddSingleton<IDialogService, DialogService>();
 
             return builder.Build();
         }
