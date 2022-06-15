@@ -1,0 +1,37 @@
+﻿@using BlazorBarcodeScanner.ZXing.JS
+<h3>Barcode</h3>
+
+<BlazorBarcodeScanner.ZXing.JS.BarcodeReader 
+    Title="Scan Barcode from Camera"
+    StartCameraAutomatically="false"
+    ShowStart="true"
+    ShowReset="true"
+    ShowToggleTorch="true"
+    ShowVideoDeviceList="true"
+    VideoWidth="300"
+    VideoHeight="200" 
+    OnCodeReceived="LocalReceivedBarcodeText" />
+
+
+<button @onclick="OnGrabFrame">Grab image</button>
+<!-- If there is no source URL, we hide the image to avoid he "broken image" icons... -->
+<img src="@_img" style="@(string.IsNullOrWhiteSpace(_imgSrc) ? "display:none;" : "")" />
+
+@code {
+    private string LocalBarcodeText;
+    private BarcodeReader _reader;
+    private string _img = string.Empty;
+    private string _imgSrc = string.Empty;
+
+    private async void OnGrabFrame(MouseEventArgs args)
+    {
+        _imgSrc = await _reader.Capture();
+        StateHasChanged();
+    }
+
+    private void LocalReceivedBarcodeText(BarcodeReceivedEventArgs args)
+    {
+        this.LocalBarcodeText = args.BarcodeText;
+        StateHasChanged();
+    }
+}

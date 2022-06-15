@@ -13,5 +13,10 @@ namespace PPPOCMobileBlazorMAUI.Services
         {
             return await Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
         }
+
+        public Task DisplayAlert(string title, string message, string accept)
+        {
+            return Application.Current.MainPage.DisplayAlert(title, message, accept);
+        }
     }
 }

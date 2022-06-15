@@ -9,5 +9,6 @@ namespace PPPOCMobileBlazorMAUI.Interface
     internal interface IDialogService
     {
         Task<bool> DisplayConfirm(string title, string message, string accept, string cancel);
+        Task DisplayAlert(string title, string message, string accept);
     }
 }
