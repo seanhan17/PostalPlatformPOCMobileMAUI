@@ -11,23 +11,33 @@ public partial class Camera : ContentPage
     {
         if (MediaPicker.Default.IsCaptureSupported)
         {
-            PermissionStatus status = await Permissions.RequestAsync<Permissions.Camera>();
+            PermissionStatus cameraStatus = await Permissions.RequestAsync<Permissions.Camera>();
+            PermissionStatus storageWrite = await Permissions.RequestAsync<Permissions.StorageWrite>();
 
-            if (status == PermissionStatus.Granted)
+            if (cameraStatus != PermissionStatus.Granted)
             {
-                FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+                await DisplayAlert("Camera Permission", "Camera permission has been disabled. Please enable it to use the camera", "Ok");
+                return;
+            }
 
-                if (photo != null)
-                {
-                    // save the file into local storage
-                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+            if (storageWrite != PermissionStatus.Granted)
+            {
+                await DisplayAlert("Media Permission", "Media permission has been disabled. Please enable it to use the media", "Ok");
+                return;
+            }
 
-                    using Stream sourceStream = await photo.OpenReadAsync();
-                    using FileStream localFileStream = File.OpenWrite(localFilePath);
+            FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
 
-                    await sourceStream.CopyToAsync(localFileStream);
-                    _PhotoView.Source = localFilePath;
-                }
+            if (photo != null)
+            {
+                // save the file into local storage
+                string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+
+                using Stream sourceStream = await photo.OpenReadAsync();
+                using FileStream localFileStream = File.OpenWrite(localFilePath);
+
+                await sourceStream.CopyToAsync(localFileStream);
+                _PhotoView.Source = localFilePath;
             }
         }
     }

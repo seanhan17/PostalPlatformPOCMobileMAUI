@@ -59,22 +59,24 @@ public partial class Mapzx : ContentPage
             PermissionStatus locationAlwaysStatus = await Permissions.RequestAsync<Permissions.LocationAlways>();
             PermissionStatus locationWhenInUseStatus = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
 
-            if (locationAlwaysStatus == PermissionStatus.Granted || locationWhenInUseStatus == PermissionStatus.Granted)
+            if (!(locationAlwaysStatus == PermissionStatus.Granted || locationWhenInUseStatus == PermissionStatus.Granted))
             {
-
-                _isCheckingLocation = true;
-
-                GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
-
-                _cancelTokenSource = new CancellationTokenSource();
-
-                Location location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
-
-                if (location != null)
-                    await DisplayAlert("Get Current Location", $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}", "Ok");
-                else
-                    await DisplayAlert("Get Current Location", "Unable to retrieve current location", "Ok");
+                await DisplayAlert("Geolocation Permission", "Geolocation permission has been disabled. Please enable it to use the Geolocation", "Ok");
+                return;
             }
+
+            _isCheckingLocation = true;
+
+            GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+
+            _cancelTokenSource = new CancellationTokenSource();
+
+            Location location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
+
+            if (location != null)
+                await DisplayAlert("Get Current Location", $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}", "Ok");
+            else
+                await DisplayAlert("Get Current Location", "Unable to retrieve current location", "Ok");
         }
         // Catch one of the following exceptions:
         //   FeatureNotSupportedException
