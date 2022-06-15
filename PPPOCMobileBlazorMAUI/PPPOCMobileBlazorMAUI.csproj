@@ -16,8 +16,8 @@
 		<ApplicationTitle>PPPOCMobileBlazorMAUI</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.pppocmobileblazormaui</ApplicationId>
-		<ApplicationIdGuid>1DDB9AB4-43D8-4BDC-8E4A-3347747B7BF1</ApplicationIdGuid>
+		<ApplicationId>com.fusionex.tns.rm.postal</ApplicationId>
+		<ApplicationIdGuid>BCC66338-829C-466B-B580-029F862A142C</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -29,6 +29,15 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">
+		<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+		<CodesignKey>Apple Development: Billy Lim (2824S46TR9)</CodesignKey>
+		<CodesignProvision>TNS Postal - MAUI - POC - Development</CodesignProvision>
+		<CodesignEntitlement>Entitlements.plist</CodesignEntitlement>
+		<ArchiveOnBuild>true</ArchiveOnBuild>
+		<TcpPort>58181</TcpPort>
 	</PropertyGroup>
 
 	<ItemGroup>
