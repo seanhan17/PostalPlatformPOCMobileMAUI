@@ -84,7 +84,7 @@ public partial class Mapzx : ContentPage
         //   PermissionException
         catch (Exception ex)
         {
-            // Unable to get location
+            await DisplayAlert("Get Current Location", "Unable to retrieve current location", "Ok");
         }
         finally
         {
