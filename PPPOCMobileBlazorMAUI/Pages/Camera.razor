@@ -1,4 +1,6 @@
 ﻿@page "/camera"
+@using PPPOCMobileBlazorMAUI.Interface
+@inject IDialogService DialogService
 @inject IJSRuntime JS
 
 <h3>Camera</h3>
@@ -13,30 +15,40 @@
     {
         if (MediaPicker.Default.IsCaptureSupported)
         {
-            PermissionStatus status = await Permissions.RequestAsync<Permissions.Camera>();
+            PermissionStatus cameraStatus = await Permissions.RequestAsync<Permissions.Camera>();
+            PermissionStatus storageWrite = await Permissions.RequestAsync<Permissions.StorageWrite>();
 
-            if (status == PermissionStatus.Granted)
+            if (cameraStatus != PermissionStatus.Granted)
             {
-                FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+                await DialogService.DisplayConfirm("Camera Permission", "Camera permission has been disabled. Please enable it to use the camera", "Ok", "Cancel");
+                return;
+            }
 
-                if (photo != null)
+            if (storageWrite != PermissionStatus.Granted)
+            {
+                await DialogService.DisplayConfirm("Media Permission", "Media permission has been disabled. Please enable it to use the media", "Ok", "Cancel");
+                return;
+            }
+
+            FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+
+            if (photo != null)
+            {
+                // save the file into local storage
+                //string localFilePath2 = Path.Combine(Environment.GetFolderPath(FileSystem.CacheDirectory), photo.FileName);
+                string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+
+                using Stream sourceStream = await photo.OpenReadAsync();
                 {
-                    // save the file into local storage
-                    //string localFilePath2 = Path.Combine(Environment.GetFolderPath(FileSystem.CacheDirectory), photo.FileName);
-                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+                    using FileStream localFileStream = File.OpenWrite(localFilePath);
 
-                    using Stream sourceStream = await photo.OpenReadAsync();
-                    {
-                        using FileStream localFileStream = File.OpenWrite(localFilePath);
+                    await sourceStream.CopyToAsync(localFileStream);
 
-                        await sourceStream.CopyToAsync(localFileStream);
+                    //imageSource = localFilePath;
+                    //imageSource = ImageSource.FromStream(() => sourceStream);
 
-                        //imageSource = localFilePath;
-                        //imageSource = ImageSource.FromStream(() => sourceStream);
-
-                        var dotnetImageStream = new DotNetStreamReference(sourceStream);
-                        await JS.InvokeVoidAsync("setImageUsingStreaming", "image1", dotnetImageStream);
-                    }
+                    var dotnetImageStream = new DotNetStreamReference(sourceStream);
+                    await JS.InvokeVoidAsync("setImageUsingStreaming", "image1", dotnetImageStream);
                 }
             }
         }
