@@ -12,7 +12,8 @@
                 x:Name="TakePhotoButton"
                 Text="Take Photo"
                 Clicked="OnTakePhoto"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                Margin="5" />
 
         <Image Source="https://aka.ms/campus.jpg"
                 x:Name="_PhotoView"

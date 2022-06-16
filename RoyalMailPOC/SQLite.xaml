@@ -4,11 +4,11 @@
              x:Class="RoyalMailPOC.SQLite"
              Title="SQLite">
     <VerticalStackLayout>
-        <Button Clicked="AddAccountClicked" Text="Add account"/>
-        <Button Clicked="UpdateAccountClicked" Text="Update account"/>
-        <Button Clicked="DeleteAccountClicked" Text="Delete account"/>
-        <Button Clicked="Filter1AccountClicked" Text="Accounts with positive balance"/>
-        <Button Clicked="Filter2AccountClicked" Text="Accounts with zero balance"/>
+        <Button Clicked="AddAccountClicked" Text="Add account" Margin="5" />
+        <Button Clicked="UpdateAccountClicked" Text="Update account" Margin="5" />
+        <Button Clicked="DeleteAccountClicked" Text="Delete account" Margin="5" />
+        <Button Clicked="Filter1AccountClicked" Text="Accounts with positive balance" Margin="5" />
+        <Button Clicked="Filter2AccountClicked" Text="Accounts with zero balance" Margin="5" />
         <CollectionView x:Name="collectionView" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate>

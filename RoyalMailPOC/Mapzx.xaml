@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RoyalMailPOC.Mapzx"
-             Title="Mapzx">
+             Title="Map">
     <StackLayout>
         <Label Text="Map"
                 VerticalOptions="Center" 
@@ -12,17 +12,20 @@
                 x:Name="NavigateButton"
                 Text="Navigate 1"
                 Clicked="OnNavigate"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                Margin="5" />
 
         <Button 
                 x:Name="NavigateTwoButton"
                 Text="Navigate 2"
                 Clicked="OnNavigateTwo"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                Margin="5" />
         <Button 
                 x:Name="GetGeolocationButton"
                 Text="Get Current Location"
                 Clicked="OnGetGeolocation"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                Margin="5" />
     </StackLayout>
 </ContentPage>
