@@ -4,9 +4,9 @@ namespace RoyalMailPOC;
 
 public partial class Barcode : ContentPage
 {
-	public Barcode()
-	{
-		InitializeComponent();
+    public Barcode()
+    {
+        InitializeComponent();
 
         barcodeView.Options = new BarcodeReaderOptions
         {
@@ -32,7 +32,6 @@ public partial class Barcode : ContentPage
                 barcodeGenerator.Format = r.Format;
 
                 DisplayAlert("Barcode detected", $"Value: {r.Value}, BarcodeFormat: {r.Format}", "Ok");
-
             });
         }
         catch (Exception)
@@ -40,12 +39,6 @@ public partial class Barcode : ContentPage
 
             throw;
         }
-
-
-
-
-
-
     }
 
     void SwitchCameraButton_Clicked(object sender, EventArgs e)
