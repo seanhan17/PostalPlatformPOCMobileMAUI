@@ -16,18 +16,36 @@ public partial class Barcode : ContentPage
         };
     }
 
-    protected void BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
+    protected async void BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
     {
-        foreach (var barcode in e.Results)
-            Console.WriteLine($"Barcodes: {barcode.Format} -> {barcode.Value}");
-
-        MainThread.InvokeOnMainThreadAsync(() =>
+        try
         {
-            var r = e.Results.First();
+            foreach (var barcode in e.Results)
+                Console.WriteLine($"Barcodes: {barcode.Format} -> {barcode.Value}");
 
-            barcodeGenerator.Value = r.Value;
-            barcodeGenerator.Format = r.Format;
-        });
+
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                var r = e.Results.First();
+
+                barcodeGenerator.Value = r.Value;
+                barcodeGenerator.Format = r.Format;
+
+                DisplayAlert("Barcode detected", $"Value: {r.Value}, BarcodeFormat: {r.Format}", "Ok");
+
+            });
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+
+
+
+
+
+
     }
 
     void SwitchCameraButton_Clicked(object sender, EventArgs e)
