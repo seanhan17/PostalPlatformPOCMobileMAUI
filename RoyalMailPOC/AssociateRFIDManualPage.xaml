@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RoyalMailPOC.AssociateRFIDManualPage"
+             Title="AssociateRFIDManualPage">
+    <VerticalStackLayout>
+        <ActivityIndicator x:Name="activityIndicator"
+                           IsRunning="false"
+                           IsVisible="false"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="Fill"/>
+
+        <VerticalStackLayout x:Name="snackbarAnchor" Margin="0,40,0,-20" HeightRequest="50"/>
+        <HorizontalStackLayout
+            Margin="20,10">
+            <Label
+                Margin="20,10"
+                x:Name="lblRFIDId"
+                Text="RFID ID"
+                HorizontalOptions="Center" 
+                FontAttributes="Bold"/>
+            <Entry
+                Margin="20,10"
+                x:Name="lblRFIDIdField"
+                HorizontalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout
+            Margin="20,10">
+            <Label
+                Margin="20,10"
+                x:Name="lblItemId"
+                Text="Item ID"
+                HorizontalOptions="Center"
+                FontAttributes="Bold"/>
+            <Entry
+                Margin="20,10"
+                x:Name="lblItemIdField"
+                Text="RFID ID"
+                HorizontalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <StackLayout VerticalOptions="EndAndExpand">
+            <Button
+                x:Name="btnSubmit"
+                Text="Submit"
+                TextColor="White"
+                BackgroundColor="#32B5FF"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+        </StackLayout>
+    </VerticalStackLayout>
+</ContentPage>

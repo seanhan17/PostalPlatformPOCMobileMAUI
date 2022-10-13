@@ -10,9 +10,11 @@ public partial class Barcode : ContentPage
 
         barcodeView.Options = new BarcodeReaderOptions
         {
-            Formats = BarcodeFormats.All,
-            AutoRotate = true,
-            Multiple = true
+            Formats = BarcodeFormat.Code39,
+            AutoRotate = false,
+            Multiple = false,
+            TryHarder = true
+            
         };
     }
 

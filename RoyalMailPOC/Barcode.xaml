@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI"
@@ -21,7 +21,7 @@
         <Grid
 			Grid.Row="0"
 			BackgroundColor="#aa000000">
-            <Label Grid.Row="2" Text="Top text..." HorizontalOptions="Center" VerticalOptions="Center" TextColor="White" />
+            <Label Grid.Row="2" Text="Place the barcode at the center" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White" />
         </Grid>
 
         <Grid
