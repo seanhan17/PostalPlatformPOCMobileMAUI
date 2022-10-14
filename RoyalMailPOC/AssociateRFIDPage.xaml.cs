@@ -1,6 +1,8 @@
-﻿using CommunityToolkit.Maui.Alerts;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using Microsoft.Extensions.Configuration;
+using Plugin.Maui.Audio;
 using ZXing;
 using ZXing.Net.Maui;
 using BarcodeFormat = ZXing.Net.Maui.BarcodeFormat;
@@ -11,14 +13,19 @@ public partial class AssociateRFIDPage : ContentPage
 {
 	private ScanField RFIDId;
 	private ScanField ItemId;
+    public ObservableCollection<History> Histories { get; set; }
 
     private WebAPILayer wapi = new WebAPILayer();
     private bool isSuccess;
     private string resultMessage ="";
 
-	public AssociateRFIDPage()
+    private readonly IAudioManager audioManager;
+
+    public AssociateRFIDPage(IAudioManager audioManager)
 	{
 		InitializeComponent();
+
+        this.audioManager = audioManager;
 
         barcodeReader.Options = new BarcodeReaderOptions
         {
@@ -30,16 +37,29 @@ public partial class AssociateRFIDPage : ContentPage
         };
 
         ResetScan();
+
+
+        Histories = new ObservableCollection<History>();
     }
 
 	private void CameraBarcodeReaderView_BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
 	{
-		#region Scanning
-		MainThread.BeginInvokeOnMainThread(async () =>
+        #region Scanning
+
+        MainThread.BeginInvokeOnMainThread(async () =>
 		{
-			if (barcodeReader.IsDetecting)
+            if (barcodeReader.IsDetecting)
             {
                 barcodeReader.IsDetecting = false;
+
+                var beep = AudioManager.Current.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("soundBarcodeBeep.mp3"));
+
+                beep.Loop = false;
+                beep.Play();
+
+                //Vibration.Default.Vibrate(TimeSpan.FromMilliseconds(50));
+                Vibration.Default.Vibrate(TimeSpan.FromTicks(1));
+
                 if (RFIDId.IsScanning)
 				{
                     barcodeBorder.BackgroundColor = Color.FromArgb("#27ae60");
@@ -81,15 +101,23 @@ public partial class AssociateRFIDPage : ContentPage
                             TextColor = Colors.White,
                             ActionButtonTextColor = Colors.White,
                             CornerRadius = new CornerRadius(10),
-                            Font = Microsoft.Maui.Font.SystemFontOfSize(14),
+                            Font = Microsoft.Maui.Font.SystemFontOfSize(12),
                         };
                         var snackbar = Snackbar.Make(snackbarMsg,null, "OK", TimeSpan.FromSeconds(3),options, anchor:snackbarAnchor);
                         
                         await snackbar.Show();
 
+                        Histories.Insert(0,new History
+                        {
+                            RFIDId = RFIDId.Value,
+                            ItemId = ItemId.Value,
+                            Status = isSuccess ? "Successful" : "Failed",
+                            StatusColor = isSuccess ? Color.FromArgb("#27ae60") : Color.FromArgb("#e74c3c")
+                        });
+
+                        HistoryListView.ItemsSource = Histories;
+
                         ResetScan();
-
-
                         activityIndicator.IsVisible = false;
                         activityIndicator.IsRunning = false;
                         mainLayout.IsEnabled = true;
@@ -124,6 +152,11 @@ public partial class AssociateRFIDPage : ContentPage
         RFIDId.IsScanning = true;
         barcodeReader.IsDetecting = true;
         barcodeBorder.BackgroundColor = Color.FromArgb("#e74c3c");
+    }
+
+    private async void OnEnterManuallyClicked(object sender, EventArgs args)
+    {
+        await Navigation.PushAsync(new AssociateRFIDManualPage());
     }
 
     #region Associate RFID
@@ -182,6 +215,10 @@ public partial class AssociateRFIDPage : ContentPage
                             AssociateRFIDHelperFunction(id, itemid, rfidid, returnDataRFIDId, returnDataREFId, false, true);
                             isSuccess = true;
                             break;
+                        default:
+                            isSuccess = false;
+                            resultMessage = "Failed to associate RFID";
+                            break;
                         
                     }
 
@@ -193,18 +230,17 @@ public partial class AssociateRFIDPage : ContentPage
                     switch (returnStatus)
                     {
                         case -1:
-                            resultMessage = "";
-                            resultMessage = "Item " + itemid + " does not exist.";
+                            resultMessage = "Item does not exist.";
 
                             break;
                         case -2:
-                            resultMessage = "Item " + itemid + " is not a RFID item.";
+                            resultMessage = "Item is not a RFID item.";
                             break;
                         case -3:
-                            resultMessage = "Item " + itemid + " is already associated/invalid.";
+                            resultMessage = "Item is already associated/invalid.";
                             break;
                         case -4:
-                            resultMessage = "Item " + itemid + " is already associated but not a RFID item.";
+                            resultMessage = "Item is already associated but not a RFID item.";
                             break;
                         case -5:
                             resultMessage = "that the RFID has no Shortcode assigned. Please assign a shortcode to this RFID before allocating it to an item or panellist.";
@@ -323,4 +359,12 @@ public partial class AssociateRFIDPage : ContentPage
     private const string SMART_MANAGEMENT_StudyType_Priority = "6";
     private const string SMART_MANAGEMENT_StudyType_Express = "8";
     #endregion
+
+    public class History
+    {
+        public string RFIDId { get; set; }
+        public string ItemId { get; set; }
+        public string Status { get; set; }
+        public Color StatusColor { get; set; }
+    }
 }

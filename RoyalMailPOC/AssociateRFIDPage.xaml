@@ -6,12 +6,6 @@
              Title="Associate RFID">
     <VerticalStackLayout x:Name="mainLayout" VerticalOptions="FillAndExpand">
 
-        <ActivityIndicator x:Name="activityIndicator"
-                           IsRunning="false"
-                           IsVisible="false"
-                           VerticalOptions="CenterAndExpand"
-                           HorizontalOptions="Fill"/>
-
         <VerticalStackLayout x:Name="snackbarAnchor" Margin="0,40,0,-20" HeightRequest="50"/>
 
         <Border x:Name="barcodeBorder"
@@ -41,45 +35,98 @@
                         BarcodesDetected="CameraBarcodeReaderView_BarcodesDetected" />
             </Border>
         </Border>
+        
+
+        <ActivityIndicator x:Name="activityIndicator"
+                           IsRunning="false"
+                           IsVisible="false"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
 
         <HorizontalStackLayout
-            Margin="20,10">
+            Margin="20,0">
             <Label
                 Margin="20,10"
                 x:Name="lblRFIDId"
-                Text="RFID ID"
+                Text="RFID ID:"
                 HorizontalOptions="Center" 
-                FontAttributes="Bold"/>
+                FontFamily="InterRegular"/>
             <Label
                 Margin="20,10"
                 x:Name="lblRFIDIdField"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                FontFamily="InterMedium"
+                FontSize="18"/>
         </HorizontalStackLayout>
 
         <HorizontalStackLayout
-            Margin="20,10">
+            Margin="20,0">
             <Label
                 Margin="20,10"
                 x:Name="lblItemId"
-                Text="Item ID"
+                Text="Item ID:"
                 HorizontalOptions="Center"
-                FontAttributes="Bold"/>
+                FontFamily="InterRegular"/>
             <Label
                 Margin="20,10"
                 x:Name="lblItemIdField"
-                Text="RFID ID"
-                HorizontalOptions="Center" />
+                Text="Item ID"
+                HorizontalOptions="Center"
+                FontFamily="InterMedium"
+                FontSize="18"/>
         </HorizontalStackLayout>
 
-        <StackLayout VerticalOptions="EndAndExpand">
-            <Button
+        <VerticalStackLayout HorizontalOptions="CenterAndExpand">
+            <Label
+                FontSize="22"
+                FontFamily="InterBold"
+                TextColor="Black"
+                Text="History"
+                Margin="20,30,20,0"/>
+            <ListView
+                x:Name="HistoryListView"
+                ItemsSource="{Binding Histories}"
+                HeightRequest="150"
+                SeparatorColor="#8a8a8a"
+                SeparatorVisibility="Default"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Margin="10" Grid.Column="0" Text="{Binding RFIDId}"/>
+                                <Label Margin="10" Grid.Column="1" Text="{Binding ItemId}"/>
+                                <Label Margin="10" Grid.Column="2" Text="{Binding Status}" TextColor="{Binding StatusColor}"/>
+                            </Grid>
+
+                        </ViewCell>
+
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+        </VerticalStackLayout>
+
+        <Button
                 x:Name="btnEnterManually"
                 Text="Enter Manually"
                 TextColor="#666666"
                 BackgroundColor="Transparent"
-                VerticalOptions="EndAndExpand"
-                HorizontalOptions="CenterAndExpand"/>
-        </StackLayout>
+                VerticalOptions="End"
+                HorizontalOptions="Center"
+            Margin="50"
+                Clicked="OnEnterManuallyClicked"/>
 
     </VerticalStackLayout>
 </ContentPage>

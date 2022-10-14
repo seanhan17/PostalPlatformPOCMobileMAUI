@@ -2,52 +2,86 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RoyalMailPOC.AssociateRFIDManualPage"
-             Title="AssociateRFIDManualPage">
-    <VerticalStackLayout>
+             Title="Associate RFID">
+    <VerticalStackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Spacing="5">
         <ActivityIndicator x:Name="activityIndicator"
                            IsRunning="false"
                            IsVisible="false"
                            VerticalOptions="CenterAndExpand"
                            HorizontalOptions="Fill"/>
 
-        <VerticalStackLayout x:Name="snackbarAnchor" Margin="0,40,0,-20" HeightRequest="50"/>
-        <HorizontalStackLayout
-            Margin="20,10">
+        <VerticalStackLayout x:Name="snackbarAnchor" Margin="0,40,0,-20" HeightRequest="50">
             <Label
-                Margin="20,10"
+                FontSize="26"
+                FontFamily="InterBold"
+                TextColor="Black"
+                Text="Enter Manually"
+                Margin="20,-10,20,20"/>
+
+        </VerticalStackLayout>
+        <HorizontalStackLayout>
+            <Label
+                FontFamily="InterSemiBold"
+                Margin="20,0"
                 x:Name="lblRFIDId"
                 Text="RFID ID"
-                HorizontalOptions="Center" 
+                HorizontalOptions="Start" 
                 FontAttributes="Bold"/>
-            <Entry
-                Margin="20,10"
-                x:Name="lblRFIDIdField"
-                HorizontalOptions="Center" />
-        </HorizontalStackLayout>
-
-        <HorizontalStackLayout
-            Margin="20,10">
             <Label
-                Margin="20,10"
+                FontFamily="InterRegular"
+                Margin="20,0"
+                x:Name="lblRFIDIdValidate"
+                Text="* Required"
+                TextColor="#e74c3c"
+                HorizontalOptions="Start" 
+                IsVisible="false"
+                FontSize="14"/>
+        </HorizontalStackLayout>
+        <Entry
+            Keyboard="Numeric"
+            Margin="20,10,20,40"
+            x:Name="entryRFIDId"
+            Placeholder="RFID ID"
+            WidthRequest="380"
+            HeightRequest="50"
+            HorizontalOptions="StartAndExpand" />
+
+        <HorizontalStackLayout>
+            <Label
+                FontFamily="InterSemiBold"
+                Margin="20,0"
                 x:Name="lblItemId"
                 Text="Item ID"
-                HorizontalOptions="Center"
+                HorizontalOptions="Start"
                 FontAttributes="Bold"/>
-            <Entry
-                Margin="20,10"
-                x:Name="lblItemIdField"
-                Text="RFID ID"
-                HorizontalOptions="Center" />
+            <Label
+                FontFamily="InterRegular"
+                Margin="20,0"
+                x:Name="lblItemIdValidate"
+                Text="* Required"
+                TextColor="#e74c3c"
+                HorizontalOptions="Start" 
+                IsVisible="false"
+                FontSize="14"/>
         </HorizontalStackLayout>
+        <Entry
+            Keyboard="Numeric"
+            Margin="20,10,20,40"
+            x:Name="entryItemId"
+            Placeholder="Item ID"
+            WidthRequest="380"
+            HeightRequest="50"
+            HorizontalOptions="StartAndExpand" />
 
-        <StackLayout VerticalOptions="EndAndExpand">
-            <Button
-                x:Name="btnSubmit"
-                Text="Submit"
-                TextColor="White"
-                BackgroundColor="#32B5FF"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"/>
-        </StackLayout>
+        <Button
+            x:Name="btnSubmit"
+            Text="Submit"
+            TextColor="White"
+            WidthRequest="200"
+            BackgroundColor="#32B5FF"
+            VerticalOptions="EndAndExpand"
+            HorizontalOptions="Center"
+            Clicked="OnSubmitClicked"/>
+
     </VerticalStackLayout>
 </ContentPage>

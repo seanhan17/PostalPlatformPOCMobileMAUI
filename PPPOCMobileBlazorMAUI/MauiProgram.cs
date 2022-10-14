@@ -16,9 +16,6 @@ namespace PPPOCMobileBlazorMAUI
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("Inter-Regular.ttf", "InterRegular");
-                    fonts.AddFont("Inter-SemiBold.ttf", "InterSemiBold");
-                    fonts.AddFont("Inter-Bold.ttf", "InterBold");
                 });
 
             builder.Services.AddMauiBlazorWebView();

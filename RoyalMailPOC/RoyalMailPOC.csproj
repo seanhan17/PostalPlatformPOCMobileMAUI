@@ -71,6 +71,7 @@
 	  <PackageReference Include="Microsoft.Maui.Dependencies" Version="6.0.541" />
 	  <PackageReference Include="Microsoft.Maui.Extensions" Version="6.0.541" />
 	  <PackageReference Include="CommunityToolkit.Maui" Version="1.3.0" />
+	  <PackageReference Include="Plugin.Maui.Audio" Version="0.1.0-preview1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -108,5 +109,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="CommunityToolkit.Maui" />
+	  <None Remove="Plugin.Maui.Audio" />
 	</ItemGroup>
 </Project>

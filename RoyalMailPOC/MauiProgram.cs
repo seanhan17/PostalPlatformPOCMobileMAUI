@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using Plugin.Maui.Audio;
 using RoyalMailPOC.SQLiteRepository;
 using ZXing.Net.Maui;
 
@@ -17,7 +18,11 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			})
+                fonts.AddFont("Inter-Regular.ttf", "InterRegular");
+                fonts.AddFont("Inter-SemiBold.ttf", "InterSemiBold");
+                fonts.AddFont("Inter-Bold.ttf", "InterBold");
+                fonts.AddFont("Inter-Medium.ttf", "InterMedium");
+            })
         #region ZXing configuration
             .ConfigureMauiHandlers(h =>
             {
@@ -30,6 +35,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<IMap>(Map.Default);
         builder.Services.AddSingleton(new AccountRepository("accounts.db"));
         builder.Services.AddScoped<SQLite>();
+        builder.Services.AddSingleton(AudioManager.Current);
+        builder.Services.AddTransient<AssociateRFIDPage>();
 
         return builder.Build();
 	}
