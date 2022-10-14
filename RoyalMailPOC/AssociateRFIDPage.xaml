@@ -8,33 +8,16 @@
 
         <VerticalStackLayout x:Name="snackbarAnchor" Margin="0,40,0,-20" HeightRequest="50"/>
 
-        <Border x:Name="barcodeBorder"
-            BackgroundColor="#e74c3c"
-            Margin="50,0,50,30"
-            HeightRequest="290"
-            WidthRequest="390"
-            StrokeShape="RoundRectangle 40"
-            HorizontalOptions="Center"
-                VerticalOptions="Center">
-
-            <Border
-            HeightRequest="280"
-            WidthRequest="380"
-            StrokeShape="RoundRectangle 36"
-            HorizontalOptions="Center"
-                VerticalOptions="Center">
-
-                <zxing:CameraBarcodeReaderView
+        <zxing:CameraBarcodeReaderView
                         x:Name="barcodeReader"
                         IsDetecting="True"
                         IsTorchOn="False"
                         HeightRequest="280"
                         WidthRequest="380"
+                        Margin="50,0,50,30"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         BarcodesDetected="CameraBarcodeReaderView_BarcodesDetected" />
-            </Border>
-        </Border>
         
 
         <ActivityIndicator x:Name="activityIndicator"
