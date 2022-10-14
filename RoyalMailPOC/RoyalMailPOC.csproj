@@ -31,6 +31,14 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>-->
 	</PropertyGroup>
 
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
+		<AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidSigningKeyStore>..\key.keystore</AndroidSigningKeyStore>
+		<AndroidSigningStorePass>keystore123</AndroidSigningStorePass>
+		<AndroidSigningKeyAlias>MauiAlias</AndroidSigningKeyAlias>
+		<AndroidSigningKeyPass>keystore123</AndroidSigningKeyPass>
+    </PropertyGroup>
+
 	<PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">
         <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
 		<CodesignKey>Apple Development: Billy Lim (2824S46TR9)</CodesignKey>

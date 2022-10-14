@@ -19,13 +19,9 @@ public partial class AssociateRFIDPage : ContentPage
     private bool isSuccess;
     private string resultMessage ="";
 
-    private readonly IAudioManager audioManager;
-
-    public AssociateRFIDPage(IAudioManager audioManager)
+    public AssociateRFIDPage()
 	{
 		InitializeComponent();
-
-        this.audioManager = audioManager;
 
         barcodeReader.Options = new BarcodeReaderOptions
         {
@@ -42,7 +38,7 @@ public partial class AssociateRFIDPage : ContentPage
         Histories = new ObservableCollection<History>();
     }
 
-	private void CameraBarcodeReaderView_BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
+    private void CameraBarcodeReaderView_BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
 	{
         #region Scanning
 

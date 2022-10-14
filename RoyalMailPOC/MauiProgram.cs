@@ -35,8 +35,6 @@ public static class MauiProgram
         builder.Services.AddSingleton<IMap>(Map.Default);
         builder.Services.AddSingleton(new AccountRepository("accounts.db"));
         builder.Services.AddScoped<SQLite>();
-        builder.Services.AddSingleton(AudioManager.Current);
-        builder.Services.AddTransient<AssociateRFIDPage>();
 
         return builder.Build();
 	}
