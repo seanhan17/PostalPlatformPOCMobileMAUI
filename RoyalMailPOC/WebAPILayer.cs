@@ -25,12 +25,12 @@ namespace RoyalMailPOC
         {
             try
             {
-                string URI = "https://tnspostalplatformwebapi-sit.tnsglobal.com/api/HandScanner/";
+                string URI = "";
                 client.BaseAddress = new Uri(URI);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                string guidToken = "5CBB5E0B-FAD4-448E-BD59-AB79E21ED3BC";
+                string guidToken = "";
                 client.DefaultRequestHeaders.Add("Authentication", guidToken);
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             }
