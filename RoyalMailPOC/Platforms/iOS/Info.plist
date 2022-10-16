@@ -16,15 +16,15 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
@@ -39,19 +39,17 @@
 	<key>NFCReaderUsageDescription</key>
 	<string>NFC tag to read NDEF messages into the application</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Fill in a reason why your app needs access to location.</string>
+	<string>Program requires GPS to track cars and job orders</string>
 	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
 	<array>
-	  <dict>
-		<key>TemporaryFullAccuracyUsageDescription</key>
-		<string>Fill in a reason why your app needs full accuracy</string>
-	  </dict>
+		<dict>
+			<key>TemporaryFullAccuracyUsageDescription</key>
+			<string>Fill in a reason why your app needs full accuracy</string>
+		</dict>
 	</array>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Program requires GPS to track cars and job orders</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Program requires GPS to track cars and job orders</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Program requires GPS to track cars and job orders</string>
 </dict>
 </plist>

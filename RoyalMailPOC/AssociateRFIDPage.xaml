@@ -4,7 +4,7 @@
              xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI"
              x:Class="RoyalMailPOC.AssociateRFIDPage"
              Title="Associate RFID">
-    <VerticalStackLayout x:Name="mainLayout" VerticalOptions="FillAndExpand">
+    <VerticalStackLayout x:Name="mainLayout">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -13,7 +13,8 @@
 
             </Grid.RowDefinitions>
 
-            <VerticalStackLayout Grid.Row="0">
+            <Grid Grid.Row="0">
+                <VerticalStackLayout>
                  <VerticalStackLayout x:Name="snackbarAnchor" Margin="0,40,0,-20" HeightRequest="50"/>
 
                     <Border x:Name="barcodeBorder"
@@ -44,12 +45,6 @@
                         </Frame>
                     </Border>
         
-
-                    <ActivityIndicator x:Name="activityIndicator"
-                                       IsRunning="false"
-                                       IsVisible="false"
-                                       VerticalOptions="Center"
-                                       HorizontalOptions="Center"/>
 
                     <HorizontalStackLayout
                         Margin="20,0">
@@ -127,6 +122,18 @@
 
             </VerticalStackLayout>
 
+            </Grid>
+            
+
+            <Grid   Grid.Row="0" Grid.RowSpan="2">
+                <ActivityIndicator
+                                       x:Name="activityIndicator"
+                                       IsRunning="false"
+                                       IsVisible="false"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"/>
+
+            </Grid>
         </Grid>
         
         <VerticalStackLayout Grid.Row="1">
