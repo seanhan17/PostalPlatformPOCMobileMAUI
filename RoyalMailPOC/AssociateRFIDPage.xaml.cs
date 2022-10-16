@@ -53,8 +53,7 @@ public partial class AssociateRFIDPage : ContentPage
                 beep.Loop = false;
                 beep.Play();
 
-                //Vibration.Default.Vibrate(TimeSpan.FromMilliseconds(50));
-                Vibration.Default.Vibrate(TimeSpan.FromTicks(1));
+                Vibration.Default.Vibrate(TimeSpan.FromMilliseconds(200));
 
                 if (RFIDId.IsScanning)
 				{
