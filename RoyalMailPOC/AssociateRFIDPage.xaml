@@ -6,126 +6,140 @@
              Title="Associate RFID">
     <VerticalStackLayout x:Name="mainLayout" VerticalOptions="FillAndExpand">
 
-        <VerticalStackLayout x:Name="snackbarAnchor" Margin="0,40,0,-20" HeightRequest="50"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*"/>
+                <RowDefinition Height="1*"/>
 
-        <Border x:Name="barcodeBorder"
-                Stroke="#e74c3c"
-                BackgroundColor="#e74c3c"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                StrokeShape="RoundRectangle 40"
-                StrokeThickness="{OnPlatform 5, iOS=10, Android=5}"
-                Padding="{OnPlatform 4, iOS=-6, Android=4}"
-                Margin="0,0,0,10">
-            <Frame
-                HeightRequest="280"
-                WidthRequest="380"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                IsClippedToBounds="True"
-                CornerRadius="40">
-                <zxing:CameraBarcodeReaderView
-                        HeightRequest="280"
-                        WidthRequest="380"
-                        x:Name="barcodeReader"
-                        IsDetecting="True"
-                        IsTorchOn="False"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        BarcodesDetected="CameraBarcodeReaderView_BarcodesDetected" />
-            </Frame>
-        </Border>
+            </Grid.RowDefinitions>
+
+            <VerticalStackLayout Grid.Row="0">
+                 <VerticalStackLayout x:Name="snackbarAnchor" Margin="0,40,0,-20" HeightRequest="50"/>
+
+                    <Border x:Name="barcodeBorder"
+                            Stroke="#e74c3c"
+                            BackgroundColor="#e74c3c"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            StrokeShape="RoundRectangle 40"
+                            StrokeThickness="{OnPlatform 5, iOS=10, Android=5}"
+                            Padding="{OnPlatform 4, iOS=-6, Android=4}"
+                            Margin="0,0,0,10">
+                        <Frame
+                            HeightRequest="280"
+                            WidthRequest="380"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            IsClippedToBounds="True"
+                            CornerRadius="40">
+                            <zxing:CameraBarcodeReaderView
+                                    HeightRequest="280"
+                                    WidthRequest="380"
+                                    x:Name="barcodeReader"
+                                    IsDetecting="True"
+                                    IsTorchOn="False"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    BarcodesDetected="CameraBarcodeReaderView_BarcodesDetected" />
+                        </Frame>
+                    </Border>
         
 
-        <ActivityIndicator x:Name="activityIndicator"
-                           IsRunning="false"
-                           IsVisible="false"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"/>
+                    <ActivityIndicator x:Name="activityIndicator"
+                                       IsRunning="false"
+                                       IsVisible="false"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"/>
 
-        <HorizontalStackLayout
-            Margin="20,0">
-            <Label
-                Margin="20,10"
-                x:Name="lblRFIDId"
-                Text="RFID ID:"
-                HorizontalOptions="Center" 
-                FontFamily="InterRegular"/>
-            <Label
-                Margin="20,10"
-                x:Name="lblRFIDIdField"
-                HorizontalOptions="Center"
-                FontFamily="InterMedium"
-                FontSize="18"/>
-        </HorizontalStackLayout>
+                    <HorizontalStackLayout
+                        Margin="20,0">
+                        <Label
+                            Margin="20,10"
+                            x:Name="lblRFIDId"
+                            Text="RFID ID:"
+                            HorizontalOptions="Center" 
+                            FontFamily="InterRegular"/>
+                        <Label
+                            Margin="20,10"
+                            x:Name="lblRFIDIdField"
+                            HorizontalOptions="Center"
+                            FontFamily="InterMedium"
+                            FontSize="18"/>
+                    </HorizontalStackLayout>
 
-        <HorizontalStackLayout
-            Margin="20,0">
-            <Label
-                Margin="20,10"
-                x:Name="lblItemId"
-                Text="Item ID:"
-                HorizontalOptions="Center"
-                FontFamily="InterRegular"/>
-            <Label
-                Margin="20,10"
-                x:Name="lblItemIdField"
-                Text="Item ID"
-                HorizontalOptions="Center"
-                FontFamily="InterMedium"
-                FontSize="18"/>
-        </HorizontalStackLayout>
+                    <HorizontalStackLayout
+                        Margin="20,0">
+                        <Label
+                            Margin="20,10"
+                            x:Name="lblItemId"
+                            Text="Item ID:"
+                            HorizontalOptions="Center"
+                            FontFamily="InterRegular"/>
+                        <Label
+                            Margin="20,10"
+                            x:Name="lblItemIdField"
+                            Text="Item ID"
+                            HorizontalOptions="Center"
+                            FontFamily="InterMedium"
+                            FontSize="18"/>
+                    </HorizontalStackLayout>
 
-        <VerticalStackLayout HorizontalOptions="CenterAndExpand">
-            <Label
-                FontSize="22"
-                FontFamily="InterBold"
-                Text="History"
-                Margin="20,30,20,0"/>
-            <ListView
-                x:Name="HistoryListView"
-                ItemsSource="{Binding Histories}"
-                HeightRequest="150"
-                SeparatorColor="#8a8a8a"
-                SeparatorVisibility="Default"
-                >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid Padding="10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="40"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition Width="2*"/>
-                                </Grid.ColumnDefinitions>
+                    <VerticalStackLayout HorizontalOptions="CenterAndExpand">
+                        <Label
+                            FontSize="22"
+                            FontFamily="InterBold"
+                            Text="History"
+                            Margin="20,30,20,0"/>
+                        <ListView
+                            x:Name="HistoryListView"
+                            ItemsSource="{Binding Histories}"
+                            HeightRequest="150"
+                            SeparatorColor="#8a8a8a"
+                            SeparatorVisibility="Default"
+                            >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid Padding="10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
 
-                                <Label Margin="10" Grid.Column="0" Text="{Binding RFIDId}"/>
-                                <Label Margin="10" Grid.Column="1" Text="{Binding ItemId}"/>
-                                <Label Margin="10" Grid.Column="2" Text="{Binding Status}" TextColor="{Binding StatusColor}"/>
-                            </Grid>
+                                            <Label Margin="10" Grid.Column="0" Text="{Binding RFIDId}"/>
+                                            <Label Margin="10" Grid.Column="1" Text="{Binding ItemId}"/>
+                                            <Label Margin="10" Grid.Column="2" Text="{Binding Status}" TextColor="{Binding StatusColor}"/>
+                                        </Grid>
 
-                        </ViewCell>
+                                    </ViewCell>
 
-                    </DataTemplate>
+                                </DataTemplate>
 
-                </ListView.ItemTemplate>
+                            </ListView.ItemTemplate>
 
-            </ListView>
+                        </ListView>
 
-        </VerticalStackLayout>
+                    </VerticalStackLayout>
 
-        <Button
+            </VerticalStackLayout>
+
+        </Grid>
+        
+        <VerticalStackLayout Grid.Row="1">
+            <Button
                 x:Name="btnEnterManually"
                 Text="Enter Manually"
                 TextColor="#666666"
                 BackgroundColor="Transparent"
                 VerticalOptions="End"
                 HorizontalOptions="Center"
-            Margin="50"
+                Margin="5,5,5,10"
                 Clicked="OnEnterManuallyClicked"/>
+        </VerticalStackLayout>
 
     </VerticalStackLayout>
 </ContentPage>
