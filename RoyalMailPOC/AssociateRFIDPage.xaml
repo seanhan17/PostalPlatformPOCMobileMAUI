@@ -9,31 +9,31 @@
         <VerticalStackLayout x:Name="snackbarAnchor" Margin="0,40,0,-20" HeightRequest="50"/>
 
         <Border x:Name="barcodeBorder"
-            BackgroundColor="#e74c3c"
-            Margin="50,0,50,30"
-            HeightRequest="290"
-            WidthRequest="390"
-            StrokeShape="RoundRectangle 40"
-            HorizontalOptions="Center"
-                VerticalOptions="Center">
-
-            <Border
-            HeightRequest="280"
-            WidthRequest="380"
-            StrokeShape="RoundRectangle 36"
-            HorizontalOptions="Center"
-                VerticalOptions="Center">
-
+                Stroke="#e74c3c"
+                BackgroundColor="#e74c3c"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                StrokeShape="RoundRectangle 40"
+                StrokeThickness="{OnPlatform 5, iOS=10, Android=5}"
+                Padding="{OnPlatform 4, iOS=-6, Android=4}"
+                Margin="0,0,0,10">
+            <Frame
+                HeightRequest="280"
+                WidthRequest="380"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                IsClippedToBounds="True"
+                CornerRadius="40">
                 <zxing:CameraBarcodeReaderView
+                        HeightRequest="280"
+                        WidthRequest="380"
                         x:Name="barcodeReader"
                         IsDetecting="True"
                         IsTorchOn="False"
-                        HeightRequest="280"
-                        WidthRequest="380"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         BarcodesDetected="CameraBarcodeReaderView_BarcodesDetected" />
-            </Border>
+            </Frame>
         </Border>
         
 
@@ -80,7 +80,6 @@
             <Label
                 FontSize="22"
                 FontFamily="InterBold"
-                TextColor="Black"
                 Text="History"
                 Margin="20,30,20,0"/>
             <ListView

@@ -58,7 +58,7 @@ public partial class AssociateRFIDPage : ContentPage
 
                 if (RFIDId.IsScanning)
 				{
-                    barcodeBorder.BackgroundColor = Color.FromArgb("#27ae60");
+                    barcodeBorder.Stroke = Color.FromArgb("#27ae60");
                     RFIDId.Value = e.Results[0].Value;
                     lblRFIDIdField.Text = RFIDId.Value;
 
@@ -68,11 +68,11 @@ public partial class AssociateRFIDPage : ContentPage
                     lblItemIdField.Text = "Now scanning...";
                     await Task.Delay(2000);
                     barcodeReader.IsDetecting = true;
-                    barcodeBorder.BackgroundColor = Color.FromArgb("#e74c3c");
+                    barcodeBorder.Stroke = Color.FromArgb("#e74c3c");
                 }
                 else if (ItemId.IsScanning)
 				{
-                    barcodeBorder.BackgroundColor = Color.FromArgb("#27ae60");
+                    barcodeBorder.Stroke = Color.FromArgb("#27ae60");
                     ItemId.Value = e.Results[0].Value;
                     lblItemIdField.Text = ItemId.Value;
 
@@ -147,7 +147,7 @@ public partial class AssociateRFIDPage : ContentPage
 
         RFIDId.IsScanning = true;
         barcodeReader.IsDetecting = true;
-        barcodeBorder.BackgroundColor = Color.FromArgb("#e74c3c");
+        barcodeBorder.Stroke = Color.FromArgb("#e74c3c");
     }
 
     private async void OnEnterManuallyClicked(object sender, EventArgs args)
