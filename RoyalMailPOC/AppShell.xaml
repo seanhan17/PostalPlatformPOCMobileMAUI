@@ -11,7 +11,7 @@
             <ShellContent ContentTemplate="{DataTemplate views:AssociateRFIDPage}"/>
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Camera">
+    <!--<FlyoutItem Title="Camera">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:Camera}" />
         </Tab>
@@ -35,7 +35,7 @@
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:SQLite}" />
         </Tab>
-    </FlyoutItem>
+    </FlyoutItem>-->
     <!--<ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
