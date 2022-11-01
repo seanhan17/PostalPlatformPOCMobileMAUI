@@ -52,6 +52,14 @@
 	  <EnableCodeSigning>false</EnableCodeSigning>
 	  <MtouchDebug>true</MtouchDebug>
 	  <IOSDebuggerPort>10001</IOSDebuggerPort>
+	  <MtouchLink>SdkOnly</MtouchLink>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-ios|AnyCPU'">
+	  <EnableCodeSigning>false</EnableCodeSigning>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	  <DebugType>full</DebugType>
+	  <WarningLevel>4</WarningLevel>
 	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->

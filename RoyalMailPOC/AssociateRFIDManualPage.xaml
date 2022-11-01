@@ -41,6 +41,7 @@
             Margin="20,10,20,40"
             x:Name="entryRFIDId"
             Placeholder="RFID ID"
+            TextColor="Black"
             WidthRequest="380"
             HeightRequest="50"
             HorizontalOptions="StartAndExpand" />
@@ -68,6 +69,7 @@
             Margin="20,10,20,40"
             x:Name="entryItemId"
             Placeholder="Item ID"
+            TextColor="Black"
             WidthRequest="380"
             HeightRequest="50"
             HorizontalOptions="StartAndExpand" />

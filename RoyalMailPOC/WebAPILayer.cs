@@ -25,12 +25,13 @@ namespace RoyalMailPOC
         {
             try
             {
-                string URI = "";
+                //string URI = "https://tnspostalplatformwebapi-sit.tnsglobal.com/api/HandScanner/";
+                string URI = "http://192.168.0.238:49909/api/HandScannerV2/";
                 client.BaseAddress = new Uri(URI);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                string guidToken = "";
+                string guidToken = "5CBB5E0B-FAD4-448E-BD59-AB79E21ED3BC";
                 client.DefaultRequestHeaders.Add("Authentication", guidToken);
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             }
@@ -53,178 +54,22 @@ namespace RoyalMailPOC
             };
         }
 
-        #region API
-        public bool CheckExistsRFID(long rFIDId, bool isPostalPlatform = true)
+        public async Task<ScannerResponseModels> AssociateRFID(int id, string returnDataItemId, string returnDataRFIDId)
         {
+            string UriAPI = "AssociateRfid";
 
-            string result = string.Empty;
-            try
-            {
-                string UriAPI = "CheckExistsRFID";// +rFIDId;
+            ScannerModels scannerInfo = new ScannerModels();
+            scannerInfo.ItemId = Convert.ToInt64(returnDataItemId);
+            scannerInfo.UserId = id;
+            scannerInfo.RFIDId = Convert.ToInt64(returnDataRFIDId);
+            scannerInfo.ClientID = 1;
+            HttpResponseMessage response = client.PostAsJsonAsync(UriAPI, scannerInfo).Result;
+            response.EnsureSuccessStatusCode();
+            var ReturnObj = JsonSerializer.Deserialize<ScannerResponseModels>(response.Content.ReadAsStringAsync().Result);
 
-                ScannerModels scannerInfo = new ScannerModels();
-                scannerInfo.RFIDId = rFIDId;
-                scannerInfo.ClientID = 3;
-                scannerInfo.isPostalPlatform = isPostalPlatform;
-
-                HttpResponseMessage response = client.PostAsJsonAsync(UriAPI, scannerInfo).Result;
-                response.EnsureSuccessStatusCode();
-                result = response.Content.ReadAsStringAsync().Result;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            if (result.ToLower() == "true")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        public bool ValidateRFIDStatus(long ItemId, Int64 RFIDID, int PanellistId, out int returnStatus, bool isPostalPlatform = true)
-        {
-            string result = string.Empty;
-            try
-            {
-                string UriAPI = "ValidateRFIDStatus";
-                ScannerModels scannerInfo = new ScannerModels();
-                scannerInfo.RFIDId = RFIDID;
-                scannerInfo.ItemId = ItemId;
-                scannerInfo.PanellistID = PanellistId;
-                scannerInfo.ClientID = 3;
-                scannerInfo.isPostalPlatform = isPostalPlatform;
-                HttpResponseMessage response = client.PostAsJsonAsync(UriAPI, scannerInfo).Result;
-                response.EnsureSuccessStatusCode();
-                result = response.Content.ReadAsStringAsync().Result;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            
-            var obj = JsonSerializer.Deserialize<ScannerResponseModels>(result);
-            returnStatus = Convert.ToInt32(obj.Data.ToString());
-            if (returnStatus == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return ReturnObj;
         }
 
-        public bool CheckItemStatus(long itemID, out int returnStatus, bool isPostalPlatform = true)
-        {
-            string result = string.Empty;
-            try
-            {
-                string UriAPI = "CheckItemStatus";//?ItemId=" + itemID;
-                ScannerModels scannerInfo = new ScannerModels();
-                scannerInfo.ItemId = itemID;
-                scannerInfo.ClientID = 3;
-                scannerInfo.isPostalPlatform = isPostalPlatform;
-                HttpResponseMessage response = client.PostAsJsonAsync(UriAPI, scannerInfo).Result;
-                response.EnsureSuccessStatusCode();
-                result = response.Content.ReadAsStringAsync().Result;
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            var obj = JsonSerializer.Deserialize<ScannerResponseModels>(result);
-            returnStatus = Convert.ToInt32(obj.Data.ToString());
-            if (returnStatus == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        public bool CheckRFIDForRecall(long rFIDId, bool isPostalPlatform = true)
-        {
-
-            try
-            {
-                string UriAPI = "CheckRFIDForRecall";//?RFIDId=" + rFIDId;
-                ScannerModels scannerInfo = new ScannerModels();
-                scannerInfo.RFIDId = rFIDId;
-                scannerInfo.ClientID = 3;
-                scannerInfo.isPostalPlatform = isPostalPlatform;
-                HttpResponseMessage response = client.PostAsJsonAsync(UriAPI, scannerInfo).Result;
-                response.EnsureSuccessStatusCode();
-                var endResult = response.Content.ReadAsStringAsync().Result;
-                if (endResult.ToLower() == "true")
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-
-        }
-        public string ViewRFIDStatus(long rFIDId, bool isPostalPlatform = true)
-        {
-            string result = string.Empty;
-            try
-            {
-                //ViewRFIDStatus api for version 1 status
-                //string UriAPI = "ViewRFIDStatus";
-                string UriAPI = "ViewRFIDStatusV2";//?RFIDId=" + rFIDId;
-                ScannerModels scannerInfo = new ScannerModels();
-                scannerInfo.RFIDId = rFIDId;
-                scannerInfo.ClientID = 3;
-                scannerInfo.isPostalPlatform = isPostalPlatform;
-                HttpResponseMessage response = client.PostAsJsonAsync(UriAPI, scannerInfo).Result;
-                response.EnsureSuccessStatusCode();
-                var ReturnObj = JsonSerializer.Deserialize<ScannerResponseModels>(response.Content.ReadAsStringAsync().Result);
-                result = ReturnObj.Data.ToString();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return result;
-        }
-
-        public string AssociateRFIDsUnsorted(int scannerId, int userId, long itemId, long rFIDId, DateTime startDateTime, DateTime endDateTime, bool isPostalPlatform = true, string referenceID = null)
-        {
-
-            string result = string.Empty;
-            try
-            {
-                string UriAPI = "AssociateRFIDUnsorted";//?ScannerId=" + scannerId + "&UserId=" + userId + "&ItemId=" + itemId + "&RFIDId=" + rFIDId;
-
-                ScannerModels scannerInfo = new ScannerModels();
-                scannerInfo.ItemId = itemId;
-                scannerInfo.ScannerId = scannerId;
-                scannerInfo.UserId = userId;
-                scannerInfo.RFIDId = rFIDId;
-                scannerInfo.ClientID = 3;
-                scannerInfo.isPostalPlatform = isPostalPlatform;
-                if (!string.IsNullOrEmpty(referenceID)) scannerInfo.RefId = referenceID;
-                HttpResponseMessage response = client.PostAsJsonAsync(UriAPI, scannerInfo).Result;
-                response.EnsureSuccessStatusCode();
-                var ReturnObj = JsonSerializer.Deserialize<ScannerResponseModels>(response.Content.ReadAsStringAsync().Result);
-                result = ReturnObj.Data.ToString();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            return result;
-        }
-        #endregion
 
         public class ScannerModels
         {
